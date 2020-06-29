@@ -1,0 +1,92 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div id="top_navbar">
+	<h1>ABC Hospital Management System</h1>
+			<p>
+		    <select id="patient_dropdown" name="patient_dropdown">
+		      <option value="">Patient</option>
+		      <option value="General">General</option>
+		      <option value="Semi">Semi</option>
+		    </select>
+		  </p>
+		  <p>
+		    <select id="pharmacy_dropdown" name="pharmacy_dropdown">
+		      <option value="">pharmacy</option>
+		      <option value="General">General</option>
+		      <option value="Semi">Semi</option>
+		    </select>
+		  </p>
+
+		  <p>
+		    <select id="Dignostics_dropdown" name="Dignostics_dropdown">
+		      <option value="">Dignostics</option>
+		      <option value="General">General</option>
+		      <option value="Semi">Semi</option>
+		    </select>
+		  </p>
+</div>
+<div>
+	<form action="#" id="registration">
+	<h2 style="align-self: center">Patient Ragistration</h2>
+		<button value="get">Get</button>
+		<p>
+			<label for="patient_id">Patient SSN ID *</label>
+			<input type="number" id="patient_id" name="patient_id" value="" required />
+		</p>
+
+		<p>
+			<label for="patient_name">Patient Name</label>
+			<input type="text" id="patient_name" name="patient_name" value="" />
+		</p>
+
+		<p>
+			<label for="patient_age">Patient Age</label>
+			<input type="number" id="patient_age" name="patient_age" value="" />
+		</p>
+
+		<p>
+			<label for="">Date of Admission</label>
+			<input type="date" id="ws_doj" name="pat_doj" value="" />
+		</p>
+
+  
+		  <p>
+		    <label for="type_of_bed">Type Of Bed</label>
+		    <select name="continent" id="ws_rwtype" name="type_of_bed" >
+		      <option value="">select</option>
+		      <option value="General">General</option>
+		      <option value="Semi">Semi</option>
+		      <option value="Single">Single</option>
+		    </select>
+		  </p>
+
+		<p>
+			<label for="Address">Address</label>
+			<textarea name="description" id="desc" cols="40" rows="5"></textarea>
+		</p>
+		
+		<p>
+		<label for="type_state">State</label>
+		<select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt">s
+		</select>
+		</p>
+		<p>
+		<label for="type_city">City</label>
+		<select id ="state" ></select>
+		<script language="javascript">print_state("sts");</script>
+		</p>
+		<p>
+			 * Mandatory
+		</p>
+		<p>
+		<input id="btns" type="Submit" value="Update">
+		</p>
+
+	</form>
+
+	<div id="errorMessages"></div>
+	{% endblock %}

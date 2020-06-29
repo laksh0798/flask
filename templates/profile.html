@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<form action="/create-patient" id="registration" method="POST">
+	<h2 style="align-self: center">Patient Ragistration</h2>
+
+		<p>
+			<label for="patient_id">Patient SSN ID *</label>
+			<input type="number" id="patient_id" name="patient_id" value="" />
+		</p>
+
+		<p>
+			<label for="patient_name">Patient Name *</label>
+			<input type="text" id="patient_name" name="patient_name" value="" />
+		</p>
+
+		<p>
+			<label for="patient_age">Patient Age *</label>
+			<input type="number" id="patient_age" name="patient_age" value=""/>
+		</p>
+
+		<p>
+			<label for="">Date of Admission *</label>
+			<input type="date" id="ws_doj" name="pat_doj" value=""/>
+		</p>
+
+  
+		  <p>
+		    <label for="type_of_bed">Type Of Bed *</label>
+		    <select id="ws_rwtype" name="type_of_bed" >
+		      <option value="">select</option>
+		      <option value="General">General</option>
+		      <option value="Semi">Semi</option>
+		      <option value="Single">Single</option>
+		    </select>
+		  </p>
+
+		<p>
+			<label for="Address">Address *</label>
+			<textarea name="address" id="desc" cols="40" rows="5"></textarea>
+		</p>
+		
+		<p>
+		<label for="type_state">State *</label>
+		<select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt">s
+		</select>
+		</p>
+		<p>
+		<label for="type_city">City *</label>
+		<select id ="state" name="city" ></select>
+		<script language="javascript">print_state("sts");</script>
+		</p>
+		<p>
+<!-- 		<button type="submit" id="register">Submit</button>
+ -->	<input id="btns" type="submit" value="Submit">
+		<input id="btns" type="reset" value="Reset">
+
+		</p>
+
+	</form>
+
+	<div id="errorMessages"></div>
+{% endblock %}
