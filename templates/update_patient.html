@@ -2,61 +2,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-
-<div id="top_navbar">
-	<h1>ABC Hospital Management System</h1>
-			<p>
-		    <select id="patient_dropdown" name="patient_dropdown">
-		      <option value="">Patient</option>
-		      <option value="General">General</option>
-		      <option value="Semi">Semi</option>
-		    </select>
-		  </p>
-		  <p>
-		    <select id="pharmacy_dropdown" name="pharmacy_dropdown">
-		      <option value="">pharmacy</option>
-		      <option value="General">General</option>
-		      <option value="Semi">Semi</option>
-		    </select>
-		  </p>
-
-		  <p>
-		    <select id="Dignostics_dropdown" name="Dignostics_dropdown">
-		      <option value="">Dignostics</option>
-		      <option value="General">General</option>
-		      <option value="Semi">Semi</option>
-		    </select>
-		  </p>
-</div>
 <div>
-	<form action="#" id="registration">
-	<h2 style="align-self: center">Patient Ragistration</h2>
-		<button value="get">Get</button>
-		<p>
+	<h2 style="align-self: center">Patient Update</h2>
+
+		<form method="POST" action="/get-patient">
 			<label for="patient_id">Patient SSN ID *</label>
 			<input type="number" id="patient_id" name="patient_id" value="" required />
-		</p>
+			<button value="get">Get</button>
+		</form>
 
+	{% if user %}
+		<form action="#" id="registration">
 		<p>
 			<label for="patient_name">Patient Name</label>
-			<input type="text" id="patient_name" name="patient_name" value="" />
+			<input type="text" id="patient_name" name="patient_name" value='{{name}}' />
 		</p>
 
 		<p>
 			<label for="patient_age">Patient Age</label>
-			<input type="number" id="patient_age" name="patient_age" value="" />
+			<input type="number" id="patient_age" name="patient_age" value={{patient_age}} />
 		</p>
 
 		<p>
 			<label for="">Date of Admission</label>
-			<input type="date" id="ws_doj" name="pat_doj" value="" />
+			<input type="date" id="ws_doj" name="pat_doj" value={{date_admission}} />
 		</p>
 
   
 		  <p>
 		    <label for="type_of_bed">Type Of Bed</label>
-		    <select name="continent" id="ws_rwtype" name="type_of_bed" >
+		    <select id="ws_rwtype" name="type_of_bed" value='{{bed_type}}'>
 		      <option value="">select</option>
 		      <option value="General">General</option>
 		      <option value="Semi">Semi</option>
@@ -66,18 +41,18 @@
 
 		<p>
 			<label for="Address">Address</label>
-			<textarea name="description" id="desc" cols="40" rows="5"></textarea>
+			<textarea name="address" id="desc" cols="40" rows="5">{{address}}</textarea>
 		</p>
 		
 		<p>
 		<label for="type_state">State</label>
-		<select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt">s
+		<select onchange="print_city('state', {{state}});" name ="stt" id='state'>
 		</select>
 		</p>
 		<p>
 		<label for="type_city">City</label>
-		<select id ="state" ></select>
-		<script language="javascript">print_state("sts");</script>
+		<select id ="state" value='{{city}}'></select>
+		<script language="javascript">print_state("state");</script>
 		</p>
 		<p>
 			 * Mandatory
@@ -85,8 +60,11 @@
 		<p>
 		<input id="btns" type="Submit" value="Update">
 		</p>
-
+		
 	</form>
-
+	{% endif %}
 	<div id="errorMessages"></div>
 	{% endblock %}
+	<script>
+	$('#state').val({{state}}).change();
+	</script>

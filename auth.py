@@ -70,3 +70,17 @@ def create_patient():
         db.session.commit()
 
     return '<h1>Added New User!<h1>'
+
+@auth.route('/get-patient',methods=['POST'])
+@login_required
+def get_patient():
+    print(request.form.get('patient_id'))
+    if request.method == 'POST':
+        patient = Patient.query.filter_by(patient_ssnId=request.form.get('patient_id')).first()
+    return render_template('update_patient.html',user=True,name=patient.patient_name,patient_age = patient.patient_age,bed_type=patient.bed_type,address=patient.address,city=patient.city,state=patient.state,status=patient.status,date_admission=patient.date_admission)
+
+
+@auth.route('/update-patient')
+@login_required
+def update_patient():
+    return render_template('update_patient.html',user=False)
