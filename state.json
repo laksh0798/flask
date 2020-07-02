@@ -1,0 +1,216 @@
+{  
+    "states":[  
+       {  
+          "state":"Andhra Pradesh",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Arunachal Pradesh",
+          "districts":[  
+            
+          ]
+       },
+       {  
+          "state":"Assam",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Bihar",
+          "districts":[  
+            
+          ]
+       },
+       {  
+          "state":"Chandigarh (UT)",
+          "districts":[  
+             "Chandigarh"
+          ]
+       },
+       {  
+          "state":"Chhattisgarh",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Dadra and Nagar Haveli (UT)",
+          "districts":[  
+             "Dadra & Nagar Haveli"
+          ]
+       },
+       {  
+          "state":"Daman and Diu (UT)",
+          "districts":[  
+             "Daman",
+             "Diu"
+          ]
+       },
+       {  
+          "state":"Delhi (NCT)",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Goa",
+          "districts":[  
+             "North Goa",
+             "South Goa"
+          ]
+       },
+       {  
+          "state":"Gujarat",
+          "districts":[  
+            
+          ]
+       },
+       {  
+          "state":"Haryana",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Himachal Pradesh",
+          "districts":[  
+            
+          ]
+       },
+       {  
+          "state":"Jammu and Kashmir",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Jharkhand",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Karnataka",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Kerala",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Lakshadweep (UT)",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Madhya Pradesh",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Maharashtra",
+          "districts":[  
+            
+          ]
+       },
+       {  
+          "state":"Manipur",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Meghalaya",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Mizoram",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Nagaland",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Odisha",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Puducherry (UT)",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Punjab",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Rajasthan",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Sikkim",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Tamil Nadu",
+          "districts":[  
+            
+          ]
+       },
+       {  
+          "state":"Telangana",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Tripura",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Uttarakhand",
+          "districts":[  
+             
+          ]
+       },
+       {  
+          "state":"Uttar Pradesh",
+          "districts":[  
+            
+          ]
+       },
+       {  
+          "state":"West Bengal",
+          "districts":[  
+             
+          ]
+       }
+    ]
+ }

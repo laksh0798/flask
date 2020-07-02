@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+	<h2 style="align-self: center">Issue Medicine</h2>
+
+    <form method="POST" action="/check-medicine">
+        <label for="patient_id">Enter Medicine Name *</label>
+        <input type="hidden" id="patient_id" name="medicine_name" value={{patient_id}} required />
+        <input type="number" id="patient_id" name="medicine_name" value="" required />
+        <button value="get">Get</button>
+    </form>
+
+    {% if available %}
+        <form method="POST" action="/check-amt-medicine">
+            <label for="patient_id">Enter Medicine Name *</label>
+            <input type="hide" id="patient_id" name="medicine_name" value={{medicine_name}} required />
+            <input type="hidden" id="patient_id" name="patient_id" value={{patient_id}} required />
+            <input type="number" id="patient_id" name="quentity" value="" required />
+        <button value="get">Issue</button>
+    </form>
+    {% else %}
+    <p>Not available</p>
+    {% endif %}
+<div id="errorMessages"></div>
+{% endblock %}

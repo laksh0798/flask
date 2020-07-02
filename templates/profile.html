@@ -42,14 +42,20 @@
 		</p>
 		
 		<p>
-		<label for="type_state">State *</label>
-		<select onchange="print_city('state', this.selectedIndex);" id="sts" name ="stt">s
+		<label for="Address">State</label>
+		<select name="state">
+				{%for i in range(0, lenState)%} 
+					<option value={{state[i]}}>{{state[i]}}</option>
+				{% endfor %}
 		</select>
 		</p>
 		<p>
-		<label for="type_city">City *</label>
-		<select id ="state" name="city" ></select>
-		<script language="javascript">print_state("sts");</script>
+		<label for="Address">District</label>
+		<select name="district">
+				{%for i in range(0, lenDist)%} 
+					<option value={{district[i]}}>{{district[i]}}</option>
+				{% endfor %}
+		</select>
 		</p>
 		<p>
 <!-- 		<button type="submit" id="register">Submit</button>
