@@ -32,3 +32,14 @@ class MedicineStorage(db.Model):
     medicine_name=db.Column(db.String(50))
     qty=db.Column(db.Integer, nullable=False)
     rate=db.Column(db.Integer, nullable=False)
+
+class Diagnostics(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    patient_ssnId = db.Column(db.Integer, nullable=False)
+    test_id=db.Column(db.Integer, nullable=False)
+
+class DiagnosticsMasterFiles(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    test_id=db.Column(db.Integer, nullable=False)
+    test_name=db.Column(db.String(50))
+    test_chrge=db.Column(db.Integer, nullable=False)

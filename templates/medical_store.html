@@ -44,16 +44,18 @@
                         <th>Amount</th>
                     </tr>
             {% for i in medicine_list %}
-                <td>{{i.medicine_name}}</td>
-                <td>{{i.quantity}}</td>
-                <td>{{i.rate}}</td>
-                <td>{{i.amount}}</td>
+                <tr>
+                    <td>{{i.medicine_name}}</td>
+                    <td>{{i.quantity}}</td>
+                    <td>{{i.rate}}</td>
+                    <td>{{i.amount}}</td>
+                <tr>
             {% endfor %}
             {% endif %}
         </tr>
         </table>
-        <form method='GET' action='/issue-medicine'>
-            <input type="hidden" id="patient_id" name="patient_id" value="" required />
+        <form method='POST' action='/issue-medicine'>
+            <input type="hidden" id="patient_id" name="patient_id" value={{patient_id}} required />
             <button value="Issue">Issue</button>
         </form>
     {% endif %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %} 
+
+     <form method="POST" action="/update_test_details">
+        <input type="hidden" id="patient_id" name="patient_id" value={{patient_id}} required />
+        {% if user %}
+        <table>
+        <tr>
+            <th>Name of Test</th>
+            <th>amount</th>
+        </tr>
+        <tr>
+            <td> <select onchange="changeText(this);">
+            <option value="Please Select">Select</option>
+                {% for activity in lst2 %}
+                    <option value="{{ activity.test_Chrge}}">{{ activity.test_name }}</option>
+                {% endfor %}
+              </select>
+            </td>
+            <td id="Cell">
+            </td>
+        </tr>
+        </table>
+<p id="result"></p>
+        <table id="selected">
+            <tr>
+                <th>Name of Test</th>
+                <th>amount</th>
+            </tr>
+        </table>
+        {% block scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+            <script>
+            var sel_name = ""
+            var sel_val = ""
+            var list = []
+            var i=0;
+    function changeText(el) {
+        sel_name = el.options[el.selectedIndex].text
+        sel_val = el.value
+
+        console.log(el.name,el.value)
+    document.getElementById("Cell").innerHTML =el.value;
+    }
+    function addRow() {
+            console.log(sel_name,sel_val)
+            var table = document.getElementById("selected");
+            var row = table.insertRow(i++);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            cell1.innerHTML = sel_name;
+            cell2.innerHTML = sel_val;
+            var dict = {};
+            dict[sel_name] = sel_val;
+            list.push(dict)
+            console.log(list)
+    }
+    function update(){
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:5000/update-dia",
+                    data:{'getdata': list},
+                    dataType: "text",
+                    success: function (data) { 
+                        console.log(data)
+                        $("#result").html(data)
+                  },
+                });                
+            }
+    </script>
+    {% endblock %}
+    {% endif %}
+    </form>
+    <button onclick="addRow();">Add</button>
+    <button onclick="update();">Update</button>
+{% endblock %}

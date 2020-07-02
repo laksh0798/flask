@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+	<h2 style="align-self: center">Dagonostics</h2>
+
+    <form method="POST" action="/get-patient-details">
+        <label for="patient_id">Patient SSN ID *</label>
+        <input type="number" id="patient_id" name="patient_id" value="" required />
+        <button value="get">Get</button>
+    </form>
+    {% if user %}
+    <label>Dagonostic</label>
+    <table>
+    <tr>
+        <th>Patient ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address</th>
+        <th>DOJ</th>
+        <th>Type of Room</th>
+    </tr>
+    <tr>
+        <td>{{patient_id}}</td>
+        <td>{{name}}</td>
+        <td>{{patient_age}}</td>
+        <td>{{address}}</td>
+        <td>{{date_admission}}</td>
+        <td>{{bed_type}}</td>
+    </tr>
+
+    <label>Dagnostics Conducted</label>
+    <table>
+
+    <tr>
+        {% if not test_lst %}
+            <td>No Dagnostics Conducted</td>
+        {% else %}
+                <tr>
+                    <th>Test Name</th>
+                    <th>Amount</th>
+                </tr>
+        {% for i in test_lst %}
+            <td>{{i.test_name}}</td>
+            <td>{{i.test_chrge}}</td>
+        {% endfor %}
+        {% endif %}
+    </tr>
+    </table>
+    <form method='POST' action='/add-dagnostic'>
+        <input type="hidden" id="patient_id" name="patient_id" value={{patient_id}} required />
+        <button value="ADD">Add Dagnostis</button>
+    </form>
+{% endif %}
+<div id="errorMessages"></div>
+{% endblock %}

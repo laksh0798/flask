@@ -1,13 +1,15 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
-from .models import User,Patient, MedicineStorage, Medicine
+from .models import User,Patient, MedicineStorage, Medicine,Diagnostics,DiagnosticsMasterFiles
 from . import db
 from datetime import datetime
 import json
 from sqlalchemy.orm.attributes import flag_modified
+from flask_cors import CORS
 
 auth = Blueprint('auth', __name__)
+cors = CORS(auth, resources={"/*": {"origins": "*"}})
 
 @auth.route('/login')
 def login():
@@ -155,17 +157,20 @@ def get_patient_details():
             medicine_list.append(dic)
         return render_template('medical_store.html',user=True,patient_id=request.form.get('patient_id'),name=patient.patient_name,patient_age = patient.patient_age,bed_type=patient.bed_type,address=patient.address,city=patient.city,state=patient.state,status=patient.status,date_admission=patient.date_admission, medicine_list=medicine_list)
 
-@auth.route('/issue-medicine')
+@auth.route('/issue-medicine',methods=["POST"])
 @login_required
 def issue_medicine():
+    print(request.form.get('patient_id'))
     return render_template('issue_medicine.html',user=False,patient_id = request.form.get('patient_id') )
 
 
-@auth.route('/check-medicine', methods=['POST'])
+@auth.route('/check-medicine', methods=["POST"])
 @login_required
 def check_medicine():
     if request.method == 'POST':
-        medicineStorage = MedicineStorage.query.filter_by(medicine_name = request.form.get('medicine_name')).first()
+        print(request.form.get('medicine_name'))
+        medicineStorage = MedicineStorage.query.filter_by(medicine_name = request.form.get('medicine_name')).all()
+        print(medicineStorage)
         if medicineStorage:
             return render_template('issue_medicine.html',available=True,medicine_name = request.form.get('medicine_name'),patient_id = request.form.get('patient_id') )
         else:
@@ -176,9 +181,11 @@ def check_medicine():
 def check_medicine_qty():
     if request.method == 'POST':
         medicineStorage = MedicineStorage.query.filter_by(medicine_name = request.form.get('medicine_name')).first()
-        if(medicineStorage.qty >= request.form.get('quentity')):
-            reamining_quantity = medicineStorage.qty - request.form.get('quentity')
-            if(reamining_quantity == 0):
+        req_qty = int(request.form.get('quentity'))
+        print("%%%%%%%%%%%%%%",request.form.get('quentity'),type(req_qty),type(request.form.get('quentity')), type(medicineStorage.qty))
+        if(medicineStorage.qty >= req_qty):
+            req_qty = medicineStorage.qty - req_qty
+            if(req_qty == 0):
                         db.session.delete(medicineStorage)
                         db.session.commit()
                         medicine = Medicine(patient_ssnId = request.form.get('patient_id'), medicine_id= medicineStorage.medicine_id, qty=request.form.get('quentity'))
@@ -186,7 +193,7 @@ def check_medicine_qty():
                         db.session.commit()
                         return render_template('issue_medicine.html',available=True,quentity=True)
             else:
-                medicineStorage.qty = reamining_quantity
+                medicineStorage.qty = req_qty
                 db.session.commit()
                 medicine = Medicine(patient_ssnId = request.form.get('patient_id'), medicine_id= medicineStorage.medicine_id, qty=request.form.get('quentity'))
                 db.session.add(medicine)
@@ -194,3 +201,60 @@ def check_medicine_qty():
                 return render_template('issue_medicine.html',available=True,quentity=True)
         else:
             return render_template('issue_medicine.html',available=True,quentity=False)
+
+@auth.route('/get-patient-details', methods=['GET','POST'])
+@login_required
+def patient_Details():
+    if request.method == 'GET':
+        return render_template('dagnostics.html',user=False)
+    if request.method=='POST':
+        test_lst=[]
+        patient = Patient.query.filter_by(patient_ssnId=request.form.get('patient_id')).first()
+        diagnostics = Diagnostics.query.filter_by(patient_ssnId=request.form.get('patient_id')).all()
+        for i in diagnostics :
+            diagnosticsFiles= DiagnosticsMasterFiles.query.filter_by(test_id = i.test_id).first()
+            dic = {}
+            dic['test_name'] = diagnosticsFiles.test_name
+            dic['test_Chrge'] =diagnosticsFiles.test_chrge
+            test_lst.append(dic)
+        return render_template('dagnostics.html',user=True,patient_id=request.form.get('patient_id'),name=patient.patient_name,patient_age = patient.patient_age,bed_type=patient.bed_type,address=patient.address,date_admission=patient.date_admission, test_lst=test_lst)
+
+
+@auth.route('/add-dagnostic',methods=["POST"])
+@login_required
+def add_dagnostic():
+    if request.method=='POST':
+        test_lst_issue=[]
+        print(request.form.get('patient_id'))
+        diagnostics = DiagnosticsMasterFiles.query.all()
+        print(diagnostics)
+        for i in diagnostics:
+                # diagnosticsFiles= DiagnosticsMasterFiles.query.filter_by(test_id = i.test_id).first()
+                dic = {}
+                dic['test_name'] = i.test_name
+                dic['test_Chrge'] =i.test_chrge
+                test_lst_issue.append(dic)
+        return render_template('add_dagnostic.html',lst2=test_lst_issue,patient_id=request.form.get('patient_id'),user=True)        
+
+
+
+
+    
+
+    # return render_template('add_dagnostic.html',user=False,patient_id = request.form.get('patient_id') )
+
+@auth.route('/get_test_details')
+@login_required
+def get_test_details():
+    if request.method=='POST':
+            diagnostics = DiagnosticsMasterFiles.query.filter_by(test_name=request.form.get('test_name')).first()
+            return render_template('add_dagnostic.html',user=True,patient_id = request.form.get('patient_id'),test_name= diagnostics.test_name,test_chrge=diagnostics.test_chrge)
+
+@auth.route('/update-dia',methods=['POST'])
+def update_dia():
+    # print(request.form(data))
+    # print(json.loads(request.get_data().decode("utf-8")))
+    print("%%%%%",request.get_data())
+    # data = request.form['keyword']
+    # resp = make_response(json.dumps(data))
+    return "Added successfully"
